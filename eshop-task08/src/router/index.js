@@ -1,6 +1,7 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
+import p404 from '../views/p404.vue';
 
 Vue.use(VueRouter);
 
@@ -8,7 +9,8 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home
+        component: Home,
+        props: true
     },
     {
         path: '/cart',
@@ -25,6 +27,13 @@ const routes = [
         name: 'Good',
         component: function () {
             return import('../views/Good.vue');
+        }
+    },
+    {
+        path: '*',
+        name: 'p404',
+        component: function () {
+            return import('../views/p404.vue');
         }
     }
 ];

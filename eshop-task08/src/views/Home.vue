@@ -9,8 +9,8 @@
 <script>
     // @ is an alias to /src
     import Promo from '../components/Promo';
-    import Sale from "../components/Sale";
-    import Product from "../components/Product";
+    import Sale from '../components/Sale';
+    import Product from '../components/Product';
 
     export default {
         name: 'Home',

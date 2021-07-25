@@ -1,6 +1,7 @@
 <template>
     <footer class="footer">
-        <Warranty />
+
+        <Warranty v-if="showWarranty" />
         <Subscribe />
         <div class="footer__bottom center">
             <div class="footer__bottom-left">
@@ -64,6 +65,7 @@
         </div>
     </footer>
 </template>
+
 <script>
 
     import Subscribe from "./Subscribe";
@@ -71,6 +73,14 @@
 
     export default {
         name: 'Footer',
-        components: {Warranty, Subscribe}
+        components: {
+            Warranty,
+            Subscribe
+        },
+        computed: {
+            showWarranty() {
+                return this.$route.name === 'Home';
+            },
+        },
     }
 </script>
