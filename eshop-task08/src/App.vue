@@ -1,10 +1,10 @@
 <template>
     <div class="wrapper">
         <div class="top">
-            <Header/>
-            <router-view/>
+            <Header />
+            <router-view />
         </div>
-        <Footer/>
+        <Footer />
     </div>
 </template>
 
