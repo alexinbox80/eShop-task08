@@ -4,7 +4,7 @@
     </div>
 </template>
 <script>
-    import Catalog from "../components/Catalog";
+    import Catalog from '../components/Catalog';
     export default {
         name: 'Cart',
         components: {

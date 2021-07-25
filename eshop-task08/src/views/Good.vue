@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <Item />
-    </div>
+    <Item />
 </template>
 <script>
     import Item from "../components/Item";

@@ -3,56 +3,12 @@
         <div class="catalog__header center clear__bmargin">
             <div class="catalog__title">SHOPPING CART</div>
         </div>
-        <div class="cart__body center">
+        <div class="catalog__etitle" v-if="getCart.length === 0">EMPTY CART</div>
+        <div class="cart__body center" v-if="getCart.length">
             <div class="cart__left">
-                <div class="cart__cards">
-                    <div class="cart__item">
-                        <img class="cart__item-img" src="../assets/img/prod-item-1.jpg" alt="">
-                        <div class="cart__text">
-                            <h3 class="cart__text-title"><a class="cart__text-link" href="#">ELLERY X M'O CAPSULE</a></h3>
-                            <div class="cart__product-price">Price:&nbsp;<span>$52.00</span></div>
-                            <div class="cart__product-color">Color: Red</div>
-                            <div class="cart__product-size">Size: XI</div>
-                            <div class="cart__product-fquantity">
-                                <label class="cart__product-quantity" for="cart__product-quan1">Quantity:</label>
-                                <input class="cart__product-quaninput" type="number" id="cart__product-quan1" step="1"
-                                       min="1" max="27" value="2">
-                            </div>
-                        </div>
-                        <div class="cart__cross-close">
-                            <svg class="cart__cross-pic" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M11.2453 9L17.5302 2.71516C17.8285 2.41741 17.9962 2.01336 17.9966 1.59191C17.997 1.17045 17.8299 0.76611 17.5322 0.467833C17.2344 0.169555 16.8304 0.00177586 16.4089 0.00140366C15.9875 0.00103146 15.5831 0.168097 15.2848 0.465848L9 6.75069L2.71516 0.465848C2.41688 0.167571 2.01233 0 1.5905 0C1.16868 0 0.764125 0.167571 0.465848 0.465848C0.167571 0.764125 0 1.16868 0 1.5905C0 2.01233 0.167571 2.41688 0.465848 2.71516L6.75069 9L0.465848 15.2848C0.167571 15.5831 0 15.9877 0 16.4095C0 16.8313 0.167571 17.2359 0.465848 17.5342C0.764125 17.8324 1.16868 18 1.5905 18C2.01233 18 2.41688 17.8324 2.71516 17.5342L9 11.2493L15.2848 17.5342C15.5831 17.8324 15.9877 18 16.4095 18C16.8313 18 17.2359 17.8324 17.5342 17.5342C17.8324 17.2359 18 16.8313 18 16.4095C18 15.9877 17.8324 15.5831 17.5342 15.2848L11.2453 9Z"
-                                      fill="#575757"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-                <div class="cart__cards">
-                    <div class="cart__item">
-                        <img class="cart__item-img" src="../assets/img/prod-item-2.jpg" alt="">
-                        <div class="cart__text">
-                            <h3 class="cart__text-title"><a class="cart__text-link" href="#">ELLERY X M'O CAPSULE</a></h3>
-                            <div class="cart__product-price">Price:&nbsp;<span>$52.00</span></div>
-                            <div class="cart__product-color">Color: Red</div>
-                            <div class="cart__product-size">Size: XI</div>
-                            <div class="cart__product-fquantity">
-                                <label class="cart__product-quantity" for="cart__product-quan1">Quantity:</label>
-                                <input class="cart__product-quaninput" type="number" id="cart__product-quan1" step="1"
-                                       min="1" max="27" value="2">
-                            </div>
-                        </div>
-                        <div class="cart__cross-close">
-                            <svg class="cart__cross-pic" width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M11.2453 9L17.5302 2.71516C17.8285 2.41741 17.9962 2.01336 17.9966 1.59191C17.997 1.17045 17.8299 0.76611 17.5322 0.467833C17.2344 0.169555 16.8304 0.00177586 16.4089 0.00140366C15.9875 0.00103146 15.5831 0.168097 15.2848 0.465848L9 6.75069L2.71516 0.465848C2.41688 0.167571 2.01233 0 1.5905 0C1.16868 0 0.764125 0.167571 0.465848 0.465848C0.167571 0.764125 0 1.16868 0 1.5905C0 2.01233 0.167571 2.41688 0.465848 2.71516L6.75069 9L0.465848 15.2848C0.167571 15.5831 0 15.9877 0 16.4095C0 16.8313 0.167571 17.2359 0.465848 17.5342C0.764125 17.8324 1.16868 18 1.5905 18C2.01233 18 2.41688 17.8324 2.71516 17.5342L9 11.2493L15.2848 17.5342C15.5831 17.8324 15.9877 18 16.4095 18C16.8313 18 17.2359 17.8324 17.5342 17.5342C17.8324 17.2359 18 16.8313 18 16.4095C18 15.9877 17.8324 15.5831 17.5342 15.2848L11.2453 9Z"
-                                      fill="#575757"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
+                <Catalog__cart v-for="good in getCart" v-bind:item="good"/>
                 <div class="cart__bottom-but">
-                    <button type="button" class="cart__bottom-clear">
+                    <button type="button" class="cart__bottom-clear" @click="emptyCartHandler">
                         <span class="cart__bottom-cleartext">CLEAR SHOPPING CART</span>
                     </button>
                     <button type="button" class="cart__bottom-continue">
@@ -72,8 +28,10 @@
                     </button>
                 </div>
                 <div class="cart__account">
-                    <h4 class="cart__account-h4">SUB TOTAL $900</h4>
-                    <h3 class="cart__account-h3">GRAND TOTAL</h3>
+                    <h4 class="cart__account-h4">SUB TOTAL &#x24;{{ getPrice }}</h4>
+                    <h3 class="cart__account-h3">GRAND TOTAL
+                        <span class="grand__total">&#x24;{{ getPrice }}.00</span>
+                    </h3>
                     <hr class="cart__account-line">
                     <button type="button" class="cart__shipping-proceed">
                         <span class="cart__shipping-proceedtext">PROCEED TO CHECKOUT</span>
@@ -85,11 +43,39 @@
 </template>
 
 <script>
+    import Catalog__cart from "./Catalog__cart";
     export default {
-        name: "Catalog"
+        name: 'Catalog',
+        components: {Catalog__cart},
+        computed: {
+            getCart() {
+                return this.$store.state.cart;
+            },
+            getPrice() {
+                let price = 0;
+                let indexOf = 0;
+
+                this.$store.state.cart.map(itemCart => {
+                    indexOf = this.$store.state.catalogData.map(item => item.id).indexOf(itemCart.id);
+                    price += this.$store.state.catalogData[indexOf].price * itemCart.amount;
+                });
+
+                return price;
+            }
+        },
+        methods: {
+            emptyCartHandler() {
+                this.$store.commit('delGood', null);
+            }
+        }
     }
 </script>
 
 <style scoped>
-
+    .catalog__etitle {
+        display: flex;
+        justify-content: center;
+        margin-top: 95px;
+        font-size: 24px;
+    }
 </style>
