@@ -1,10 +1,10 @@
 <template>
     <div class="products__item">
-        <router-link to="good">
+        <a @click="goodClickHandler">
             <img class="products__img" :src="'img/' + this.item.image" alt="product img">
-        </router-link>
+        </a>
         <div class="products__content">
-            <a href="product.html" class="products__heading">{{ item.title }}</a>
+            <p class="products__heading">{{ item.title }}</p>
             <p class="products__text">{{ item.description }}</p>
             <p class="products__price">&#x24;{{ item.price }}.00</p>
         </div>
@@ -26,6 +26,10 @@
         methods: {
             addToCartHandler() {
                 this.$store.commit('addGood', this.item.id);
+            },
+            goodClickHandler() {
+                this.$store.commit('saveGoodID', this.item.id);
+                this.$router.push('/good');
             }
         }
     }

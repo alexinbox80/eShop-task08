@@ -4,9 +4,9 @@
             <div class="catalog__title">SHOPPING CART</div>
         </div>
         <div class="catalog__etitle" v-if="getCart.length === 0">EMPTY CART</div>
-        <div class="cart__body center" v-if="getCart.length">
+        <div class="cart__body center" v-else>
             <div class="cart__left">
-                <Catalog__cart v-for="good in getCart" v-bind:item="good"/>
+                <Catalog__cart v-for="good in getCart" v-bind:key="good.id" v-bind:item="good"/>
                 <div class="cart__bottom-but">
                     <button type="button" class="cart__bottom-clear" @click="emptyCartHandler">
                         <span class="cart__bottom-cleartext">CLEAR SHOPPING CART</span>

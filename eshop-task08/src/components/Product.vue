@@ -5,7 +5,7 @@
             <h4 class="products__head">Shop for items based on what we featured in this week</h4>
         </div>
         <div class="products__box">
-            <Product__cart v-for="good in getCatalog" v-bind:item="good" />
+            <Product__cart v-for="good in getCatalog" v-bind:key="good.id" v-bind:item="good" />
         </div>
         <div class="products__bottom">
             <button type="button" class="products__button">

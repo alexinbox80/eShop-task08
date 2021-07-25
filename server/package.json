@@ -1,0 +1,29 @@
+{
+  "name": "eshop",
+  "version": "0.0.1",
+  "description": "eshop app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/alexinbox80/eShop-task07.git"
+  },
+  "keywords": [
+    "eshop",
+    "app",
+    "task07"
+  ],
+  "author": "AlekseySerov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexinbox80/eShop-task07/issues"
+  },
+  "homepage": "https://github.com/alexinbox80/eShop-task07#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}

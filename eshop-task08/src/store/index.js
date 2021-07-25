@@ -3,9 +3,53 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+function sendLog(url, done, catalog, id = null) {
+    const toDo = {
+        "add": "Товар добавлен в корзину",
+        "del": "Товар удален из корзины",
+        "cle": "Корзина очина"
+    };
+
+    let jsonData = {};
+    let now = new Date();
+
+    const title = (id !== null) ? catalog[id - 1].title : 'null';
+
+    jsonData = {
+        id: `${id}`,
+        todo: `${toDo[done]}`,
+        title: `${title}`,
+        dateTime: `${now}`
+    };
+
+    sendData(url + '/stats', jsonData);
+}
+
+function sendData(url, jsonData) {
+    fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(jsonData)
+    });
+}
+
+function getData(url) {
+    //let jsonData;
+    const response = fetch(url, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+        //body: JSON.stringify(jsonData)
+    }).then((data) => {
+        return data.json();
+    });
+
+    return response;
+}
+
 export default new Vuex.Store({
     state: {
-        catalogData: [
+        url: 'http://localhost:3000',
+        catalogData1: [
             {
                 "id": 1,
                 "title": "ELLERY X M'O CAPSULE",
@@ -67,10 +111,53 @@ export default new Vuex.Store({
                 "discount": 0
             }
         ],
-        cart: []
+        catalogData: [],
+        filterCatalogData: [],
+        cart: [],
+        goodID: null,
+        searchShow: false,
+        jsonCatalog: function () {
+            return {
+                //jCatalog: [{id: 1, amount: 5}],
+                jCatalog: null
+            }
+        }
     },
     mutations: {
+        getData(state) {
+            const gd = getData(state.url + '/getCatalog');
+
+            state.jsonCatalog.jCatalog = [];
+
+            gd.then((data) => {
+                data.forEach(item => {
+                    state.jsonCatalog.jCatalog.push(item);
+                });
+            });
+
+            //console.log(state.jsonCatalog.jCatalog);
+           state.catalogData = state.jsonCatalog.jCatalog;
+        },
+        showForm(state) {
+            state.searchShow = !state.searchShow;
+        },
+        search(state, searchString) {
+
+            if (searchString.length > 2) {
+                state.filterCatalogData = state.catalogData
+                    .filter(item => item.description.toLowerCase().includes(searchString.toLowerCase()));
+            }
+
+            if (state.filterCatalogData.length > 0) {
+                state.catalogData = state.filterCatalogData;
+            }
+
+        },
+        saveGoodID(state, id) {
+            state.goodID = id;
+        },
         addGood(state, id) {
+
             let good = state.cart.find(item => item.id === id);
 
             if (good) {
@@ -79,16 +166,21 @@ export default new Vuex.Store({
             } else {
                 state.cart.push({id, amount: 1});
             }
+
+            sendData(state.url + '/addToCart', state.cart);
+            sendLog(state.url, 'add', state.catalogData, id);
         },
         delGood(state, id) {
-            //const good = state.cart.find(item => item.id === id);
-
-            //this.sendData('/delFromCart', good);
-            //this.sendLog('del', id);
-
             if (id === null) {
                 state.cart = [];
+
+                sendData(state.url + '/delFromCart', state.cart);
+                sendLog(state.url, 'cle');
             } else {
+                const good = state.cart.find(item => item.id === id);
+                sendData(state.url + '/delFromCart', good);
+                sendLog(state.url, 'del', state.catalogData, id);
+
                 const index = state.cart.findIndex(good => good.id === id);
                 if (index !== -1) {
                     state.cart.splice(index, 1);

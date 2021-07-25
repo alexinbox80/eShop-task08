@@ -2,7 +2,7 @@
     <Item />
 </template>
 <script>
-    import Item from "../components/Item";
+    import Item from '../components/Item';
     export default {
         name: 'Good',
         components: {Item}
